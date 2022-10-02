@@ -1,8 +1,44 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { Icon } from 'astro-icon';
----
+const response = await fetch("https://api.github.com/graphql",
+  {
+    method: 'POST',
+    headers: {'Content-Type':'application/json','Authorization': 'Bearer '+import.meta.env.GITHUB_TOKEN},
+    body: JSON.stringify({
+      query: `
+        query getRepository($login:String!) {
+            repositoryOwner(login: $login){
+              repositories(last: 5){
+                nodes {
+                  name
+                  repositoryTopics(first: 10) {
+                    nodes {
+                      topic {
+                        name
+                      }
+                    }
+                  }
+                  languages(first: 10) {
+                    nodes {
+                      name
+                    }
+                  }
+                }
+              }
+            }
+          }
+        `,
+      variables: {
+        login: "winstonkhoe",
+      },
+    }),
+  })
 
+  const data = await response.json()
+  console.log(data.data.repositoryOwner.repositories.nodes[3].repositoryTopics.nodes)
+
+---
 <Layout title="Home">
     <section>
         <div class="container">
