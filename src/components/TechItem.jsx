@@ -1,8 +1,14 @@
-const TechItem = (props) => {
-    console.log(props.name, props.image);
+const TechItem = ({name, image, func}) => {
+    const mouseEnter = () => {
+        func(name);
+    }
+
+    const mouseLeave = () => {
+        func("");
+    }
     return (
-        <a href="#" aria-label={props.name}>
-            <img src={"images/" + props.image} alt="" />
+        <a href="#" aria-label={name} onMouseEnter={mouseEnter} onMouseLeave={mouseLeave}>
+            <img src={"images/" + image} alt=""/>
         </a>
     )
 }

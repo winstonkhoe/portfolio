@@ -1,8 +1,9 @@
 import TechItem from "./TechItem.jsx";
 import '../styles/index.scss';
+import { useState } from "react";
 
 const Home = (props) => {
-
+    const [active, setActive] = useState('')
     const techs = [
         {
           "image": "android.png",
@@ -61,6 +62,10 @@ const Home = (props) => {
           "name": "firebase"
         },
     ]
+
+    const setActiveHover = (tech) => {
+        setActive(tech)
+    }
     
     return (
         <section>
@@ -70,6 +75,7 @@ const Home = (props) => {
                         <img className="rounded-full object-cover h-48 w-48 overflow-hidden" src="images/profile.jpg" alt=""/>
                         <span className="flex justify-center flex-col items-center mt-10">
                         <h2 className="text-4xl text-compressed">winston khoe</h2>
+                            <h2 className="text-4xl text-compressed">Active {active}</h2>
                         </span>
                         <div className="flex large-gap">
                             {props.childrens}
@@ -77,7 +83,7 @@ const Home = (props) => {
                     </div>
                     <div className="grid feature-grid">
                         {techs.map((tech) => {
-                            return <TechItem {...tech}/>
+                            return <TechItem name={tech.name} image={tech.image} func={setActiveHover} />
                         })}
                     </div>
                 </div>
