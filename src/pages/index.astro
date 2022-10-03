@@ -1,17 +1,22 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { Icon } from 'astro-icon';
+import Home from "../components/Home.jsx";
 const response = await fetch("https://api.github.com/graphql",
   {
     method: 'POST',
     headers: {'Content-Type':'application/json','Authorization': 'Bearer '+import.meta.env.GITHUB_TOKEN},
+    // repositories(last: 20){
     body: JSON.stringify({
       query: `
         query getRepository($login:String!) {
             repositoryOwner(login: $login){
-              repositories(last: 5){
+              repositories(first: 100, orderBy: {field: PUSHED_AT, direction: DESC}){
                 nodes {
                   name
+                  description
+                  pushedAt
+                  homepageUrl
                   repositoryTopics(first: 10) {
                     nodes {
                       topic {
@@ -36,48 +41,47 @@ const response = await fetch("https://api.github.com/graphql",
   })
 
   const data = await response.json()
-  console.log(data.data.repositoryOwner.repositories.nodes[3].repositoryTopics.nodes)
+  // console.log(data.data.repositoryOwner.repositories)
+  const repositories = data.data.repositoryOwner.repositories
 
+  interface Tech {
+    image: string,
+    name: string
+  }
+
+
+// <a href="#" aria-label={tech.name} onmouseover={()=>{
+//                   active = tech.name
+//                   console.log(active)
+//                 }}><img src={"images/"+tech.image} alt=""></a>
+
+let active = ""
+// <a href="#" aria-label="Android"><img src="images/android.png" alt=""></a>
+  // <a href="#" aria-label="NextJS"><img src="images/nextjs.png" alt=""></a>
+  // <a href="#" aria-label="Bootstrap"><img src="images/bootstrap.svg" alt=""></a>
+  // <a href="#" aria-label="Angular"><img src="images/angular.png" alt=""></a>
+  // <a href="#" aria-label="Tensorflow"><img src="images/tensorflow.png" alt=""></a>
+  // <a href="#" aria-label="MySQL"><img src="images/mysql.png" alt=""></a>
+  // <a href="#" aria-label="Flutter"><img src="images/flutter.png" alt=""></a>
+  // <a href="#" aria-label="Go"><img src="images/golang.png" alt=""></a>
+  // <a href="#" aria-label="Astro"><img src="images/astro-hero.png" alt=""></a>
+  // <a href="#" aria-label="Laravel"><img src="images/laravel.png" alt=""></a>
+  // <a href="#" aria-label="Tailwind"><img src="images/tailwind.png" alt=""></a>
+  // <a href="#" aria-label="Laravel"><img src="images/graphql.png" alt=""></a>
+  // <a href="#" aria-label="C-Sharp"><img src="images/c-sharp.webp" alt=""></a>
+  // <a href="#" aria-label="C-Sharp"><img src="images/firebase-white.png" alt=""></a>
+  // <a href="#" aria-label="C-Sharp"><img src="images/c-sharp.webp" alt=""></a>
+  // <a href="#" aria-label="C-Sharp"><img src="images/c-sharp.webp" alt=""></a>
+  // <a href="#" aria-label="C-Sharp"><img src="images/c-sharp.webp" alt=""></a>
+  // <a href="#" aria-label="C-Sharp"><img src="images/c-sharp.webp" alt=""></a>
+  // <a href="#" aria-label="C-Sharp"><img src="images/c-sharp.webp" alt=""></a>
 ---
 <Layout title="Home">
-    <section>
-        <div class="container">
-          <div class="feature-grid-container grid grid--columns">
-            <div class="flex flex-col justify-center items-center feature-grid-text">
-              <img class="rounded-full object-cover h-48 w-48 overflow-hidden" src="images/profile.jpg" alt="">
-              <span class="flex justify-center flex-col items-center mt-10">
-                <h2 class="text-4xl text-compressed">winston khoe</h2>
-              </span>
-              <div class="flex large-gap">
-                <a class="h-8 w-8" href="#"><Icon name="mdi:github"/></a>
-                <a class="h-8 w-8" href="#"><Icon name="mdi:linkedin"/></a>
-                <a class="h-8 w-8" href="#"><Icon name="mdi:instagram"/></a>
-              </div>
-            </div>
-            <div class="grid feature-grid">
-              <a href="#" aria-label="Android"><img src="images/android.png" alt=""></a>
-              <a href="#" aria-label="NextJS"><img src="images/nextjs.png" alt=""></a>
-              <a href="#" aria-label="Bootstrap"><img src="images/bootstrap.svg" alt=""></a>
-              <a href="#" aria-label="Angular"><img src="images/angular.png" alt=""></a>
-              <a href="#" aria-label="Tensorflow"><img src="images/tensorflow.png" alt=""></a>
-              <a href="#" aria-label="MySQL"><img src="images/mysql.png" alt=""></a>
-              <a href="#" aria-label="Flutter"><img src="images/flutter.png" alt=""></a>
-              <a href="#" aria-label="Go"><img src="images/golang.png" alt=""></a>
-              <a href="#" aria-label="Astro"><img src="images/astro-hero.png" alt=""></a>
-              <a href="#" aria-label="Laravel"><img src="images/laravel.png" alt=""></a>
-              <a href="#" aria-label="Tailwind"><img src="images/tailwind.png" alt=""></a>
-              <a href="#" aria-label="Laravel"><img src="images/graphql.png" alt=""></a>
-              <a href="#" aria-label="C-Sharp"><img src="images/c-sharp.webp" alt=""></a>
-              <a href="#" aria-label="C-Sharp"><img src="images/firebase-white.png" alt=""></a>
-              <a href="#" aria-label="C-Sharp"><img src="images/c-sharp.webp" alt=""></a>
-              <a href="#" aria-label="C-Sharp"><img src="images/c-sharp.webp" alt=""></a>
-              <a href="#" aria-label="C-Sharp"><img src="images/c-sharp.webp" alt=""></a>
-              <a href="#" aria-label="C-Sharp"><img src="images/c-sharp.webp" alt=""></a>
-              <a href="#" aria-label="C-Sharp"><img src="images/c-sharp.webp" alt=""></a>
-            </div>
-          </div>
-          </div>
-      </section>
+    <Home>
+      <a class="h-8 w-8" href="#"><Icon name="mdi:github"/></a>
+      <a class="h-8 w-8" href="#"><Icon name="mdi:linkedin"/></a>
+      <a class="h-8 w-8" href="#"><Icon name="mdi:instagram"/></a>
+    </Home>
 </Layout>
 
 <style lang="scss">
