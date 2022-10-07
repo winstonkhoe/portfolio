@@ -69,54 +69,60 @@ const Home = (props) => {
     console.log(`tech: ${tech}`);
     setActive(tech);
     if (tech === "") {
-      setActiveRepos([])
+      setActiveRepos([]);
     } else {
-      let tempRepos = []
-      for (const repository in props.repositories.nodes) {
-        for (const node in repository.repositoryTopics.nodes) {
+      let tempRepos = [];
+      console.log(props.repositories);
+      for (const repository of props.repositories.nodes) {
+        console.warn(repository);
+        for (const node of repository.repositoryTopics.nodes) {
           if (node.topic.name === tech) {
-            console.log(tech)
-            console.log(node.topic.name)
-            tempRepos.push(repository)
+            console.log(tech);
+            console.log(node.topic.name);
+            tempRepos.push(repository);
           }
         }
       }
-      setActiveRepos(tempRepos)
-      console.log(tempRepos)
+      setActiveRepos(tempRepos);
+      console.log(tempRepos);
     }
   };
-  console.log(props.repositories.nodes)
+  // console.log(props.repositories.nodes)
 
   return (
     <>
       <section>
         <div className="container">
           <div className="feature-grid-container grid grid--columns">
-            {/* {active === "" ? ( */}
-            <div className="flex flex-col justify-center items-center feature-grid-text">
-              <img
-                className="rounded-full object-cover h-48 w-48 overflow-hidden"
-                src="images/profile.jpg"
-                alt=""
-              />
-              <span className="flex justify-center flex-col items-center mt-10">
-                <h2 className="text-4xl text-compressed">winston khoe</h2>
-                <h2 className="text-4xl text-compressed">Active {active}</h2>
-              </span>
-              <div className="flex large-gap">{props.childrens}</div>
+            <div className="profile-container overflow-y-auto flex flex-col justify-center items-center">
+              {activeRepos.length === 0 ? (
+                <div className="flex flex-col justify-center items-center">
+                  <img
+                    className="rounded-full object-cover h-48 w-48 overflow-hidden"
+                    src="images/profile.jpg"
+                    alt=""
+                  />
+                  <span className="flex justify-center flex-col items-center mt-10">
+                    <h2 className="text-4xl text-compressed">winston khoe</h2>
+                    <h2 className="text-4xl text-compressed">
+                      Active {active}
+                    </h2>
+                  </span>
+                  <div className="flex large-gap">{props.childrens}</div>
+                </div>
+              ) : (
+                activeRepos.map((repo, index) => {
+                  return (
+                    <OverviewRepositoryCard
+                      key={index}
+                      name={repo.name}
+                      description={repo.description}
+                      techs={repo.repositoryTopics.nodes}
+                    />
+                  );
+                })
+              )}
             </div>
-            {/* ) : ( */}
-            {activeRepos.map((repo, index) => {
-              return (
-                <OverviewRepositoryCard
-                  key={index}
-                  name={repo.name}
-                  description={repo.description}
-                  techs={repo.repositoryTopics.nodes}
-                />
-              );
-            })}
-          {/* )} */}
 
             <div className="grid feature-grid">
               {techs.map((tech) => {
@@ -132,6 +138,7 @@ const Home = (props) => {
           </div>
         </div>
       </section>
+
       <section className="flex items-center my-64 flex-col">
         <div className="flex w-10/12 flex-wrap justify-center">
           {props.repositories.nodes.map((repo, index) => {

@@ -28,6 +28,8 @@ const OverviewRepositoryCard = (props: {
     techs: string[],
     description: string
 }) => {
+    const category = getRepoCategory(props.techs);
+    const description = props.description.indexOf
     return (
         <div className="flex flex-col justify-center items-center w-full rounded-xl p-4 flex-auto">
             <div className="flex w-full justify-end">
