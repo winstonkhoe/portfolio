@@ -1,10 +1,11 @@
 import TechItem from "./TechItem.jsx";
-import RepositoryCard from "./RepositoryCard.tsx";
+import { RepositoryCard, OverviewRepositoryCard } from "./RepositoryCard.tsx";
 import "../styles/index.scss";
 import { useState } from "react";
 
 const Home = (props) => {
   const [active, setActive] = useState("");
+  const [activeRepos, setActiveRepos] = useState([]);
   const techs = [
     {
       image: "android.png",
@@ -36,7 +37,7 @@ const Home = (props) => {
     },
     {
       image: "golang.png",
-      name: "golang",
+      name: "go",
     },
     {
       image: "astro-hero.png",
@@ -48,7 +49,7 @@ const Home = (props) => {
     },
     {
       image: "tailwind.png",
-      name: "tailwind",
+      name: "tailwindcss",
     },
     {
       image: "graphql.png",
@@ -65,10 +66,26 @@ const Home = (props) => {
   ];
 
   const setActiveHover = (tech) => {
+    console.log(`tech: ${tech}`);
     setActive(tech);
+    if (tech === "") {
+      setActiveRepos([])
+    } else {
+      let tempRepos = []
+      for (const repository in props.repositories.nodes) {
+        for (const node in repository.repositoryTopics.nodes) {
+          if (node.topic.name === tech) {
+            console.log(tech)
+            console.log(node.topic.name)
+            tempRepos.push(repository)
+          }
+        }
+      }
+      setActiveRepos(tempRepos)
+      console.log(tempRepos)
+    }
   };
-
-  console.log(props.repositories);
+  console.log(props.repositories.nodes)
 
   return (
     <>
@@ -88,9 +105,18 @@ const Home = (props) => {
               </span>
               <div className="flex large-gap">{props.childrens}</div>
             </div>
-            {/* ) : (
-            ""
-          )} */}
+            {/* ) : ( */}
+            {activeRepos.map((repo, index) => {
+              return (
+                <OverviewRepositoryCard
+                  key={index}
+                  name={repo.name}
+                  description={repo.description}
+                  techs={repo.repositoryTopics.nodes}
+                />
+              );
+            })}
+          {/* )} */}
 
             <div className="grid feature-grid">
               {techs.map((tech) => {
