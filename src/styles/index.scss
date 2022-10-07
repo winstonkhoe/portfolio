@@ -100,7 +100,7 @@ body {
     align-items: center;
     border-radius: 0.75em;
     transition: transform 350ms ease-in-out;
-    background-color: #1a1a1a;
+    background-color: var(--card-bg);
     overflow: hidden;
     > img {
       object-fit: cover;
@@ -166,4 +166,30 @@ body {
     max-width: 100%;
     max-height: 100%;
   }
+}
+
+.card-repository {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 20rem;
+  background-color: var(--card-bg);
+}
+
+.category-tag {
+  
+}
+
+.tech-container {
+  --gap: .3rem;
+}
+
+.tech-item {
+  background-color: var(--card-light-bg);
+  // color: #FFF;
+}
+
+.card-description {
+  // flex: 1;
 }
