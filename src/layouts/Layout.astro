@@ -36,7 +36,10 @@ const { title } = Astro.props;
         );
         --clr-primary: #fc307b;
         --clr-accent: #2c92ef;
+        --bg: rgb(9, 13, 22);
         --dark-bg: hsl(218, 51%, 4%, 100%);
+        --dark-blue-bg: rgba(9, 13, 22, var(--opacity, 1));
+        /* --dark-blue-bg: rgba(3, 4, 22, var(--opacity, 1)); */
         --repo-bg: rgb(17, 25, 36);
         --card-bg: #1a1a1a;
         --card-light-bg: #272727;
@@ -130,8 +133,28 @@ const { title } = Astro.props;
         }
       }
 
-      h1,h2,h3,h4,h5,h6 {
+      /* h1,h2,h3,h4,h5,h6 { */
+      * {
         font-family: 'LeaguesSpartan';
+      }
+
+      *::-webkit-scrollbar {
+        width: 7px;
+      }
+      *::-webkit-scrollbar-track {
+        margin: var(--scroll-margin-y, 3rem) var(--scroll-margin-x, 0);
+        border-radius: 9999px;
+        background-color: rgba(209, 191, 248, 0.5);
+      }
+      *::-webkit-scrollbar-thumb {
+        border-radius: 9999px;
+        background-color: rgba(0,0,0,0.3);
+      }
+      *::-webkit-scrollbar-thumb:hover {
+        background: rgba(0,0,0,0.4);
+      }
+      *::-webkit-scrollbar-thumb:active {
+        background: rgba(0,0,0,.9);
       }
     </style>
   </body>

@@ -1,43 +1,32 @@
 import { useState } from "react";
 import "../styles/index.scss";
 
-const TechItem = ({ name, image, func }) => {
-  const [onHover, setOnHover] = useState(false);
+const TechItem = ({ name, image, hover, click, style }) => {
+  // const [onHover, setOnHover] = useState(false);
   const mouseEnter = () => {
-    func(name);
-    setOnHover(true);
+    hover(name);
+    // setOnHover(true);
   };
 
   const mouseLeave = () => {
-    func("");
-    setOnHover(false);
+    hover("");
+    // setOnHover(false);
   };
+
+  const mouseClick = () => {
+    click(name);
+  }
   return (
-    // <div style={{ position: "relative", transformStyle: "preserve-3d", perspective: "1000rem" }}>
-    //   {onHover && (
-    //     <div
-    //       style={{
-    //         width: "300px",
-    //         height: "300px",
-    //         position: "absolute",
-    //         right: "100%",
-    //         backgroundColor: "#FFF",
-    //         transform: "rotateY(0deg)",
-    //         transformOrigin: "left",
-    //         zIndex: "999",
-    //       }}
-    //     ></div>
-    //   )}
     <a
+      className={`${style}`}
       href="#"
       aria-label={name}
       onMouseEnter={mouseEnter}
       onMouseLeave={mouseLeave}
-      // style={{ position: "absolute", zIndex: "-1" }}
+      onMouseDown={mouseClick}
     >
       <img src={"images/" + image} alt="" />
     </a>
-    // </div>
   );
 };
 

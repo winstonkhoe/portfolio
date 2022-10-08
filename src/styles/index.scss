@@ -3,11 +3,12 @@ section {
 }
 
 body {
+  padding: 0;
   background: var(--dark-bg);
   // background: white;
   font-size: var(--fs-400);
   color: white;
-  padding: 20vw 0;
+  // padding: 20vw 0;
   font-family: sans-serif;
   overflow-x: hidden;
 }
@@ -55,6 +56,7 @@ body {
 
 .grid--columns {
   grid-auto-columns: 1fr;
+  grid-template-columns: minmax(20rem, 1fr) minmax(40rem, 2fr);
   grid-auto-flow: column;
 }
 
@@ -79,6 +81,10 @@ body {
     rgba(255, 255, 255, 0.01) 0px 32px 64px;
   border-radius: 10px;
 }
+
+// .transition-3s {
+//   transition: all .3s ease-in-out;
+// }
 
 .feature-grid {
   position: relative;
@@ -109,6 +115,13 @@ body {
     }
   }
 }
+
+.highlight-shadow {
+  transform: scale(1.1);
+  box-shadow: 0 0 1.5rem hsl(0 0% 100% / 0.8);
+}
+
+
 
 .feature-grid > a:hover,
 .feature-grid > a:focus-visible {
@@ -192,4 +205,29 @@ body {
 
 .card-description {
   // flex: 1;
+}
+
+.overview-repository-card {
+  background-color: var(--card-bg);
+  --opacity: 10%;
+}
+
+.overview-repo-container {
+  --scroll-margin-y: 0;
+  --scroll-margin-x: 3rem;
+}
+
+.text-neon {
+
+  &:hover {
+    text-shadow:
+      0 0 7px rgba(255, 255, 255, .5),
+      0 0 10px #fff,
+      0 0 21px #fff,
+      0 0 42px #0fa,
+      0 0 82px #0fa,
+      /* 0 0 92px #0fa, */
+      /* 0 0 102px #0fa, */
+      /* 0 0 151px #0fa; */
+  }
 }
