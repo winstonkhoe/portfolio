@@ -4,5 +4,7 @@ module.exports = {
 	theme: {
 		extend: {},
 	},
-	plugins: [],
+	plugins: [
+		{ 'postcss-import': ['./src/styles/index.scss'] },
+	],
 }

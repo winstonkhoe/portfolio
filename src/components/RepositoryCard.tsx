@@ -1,9 +1,10 @@
 import { getRepoCategory } from "../misc/RepoCategory";
+import type { RepositoryTopic, Topic } from "../models/Github";
 import "../styles/index.scss";
 
 const RepositoryCard = (props: {
   name: string;
-  techs: string[];
+  techs: RepositoryTopic[];
   description: string;
 }) => {
   const category = getRepoCategory(props.techs);
@@ -36,7 +37,7 @@ const RepositoryCard = (props: {
 
 const OverviewRepositoryCard = (props: {
   name: string;
-  techs: string[];
+  techs: RepositoryTopic[];
   description: string;
 }) => {
   const category = getRepoCategory(props.techs);
@@ -57,7 +58,7 @@ const OverviewRepositoryCard = (props: {
             </a>
           ) : null}
         </div>
-        <a href={`/project/${props.name}`}><h2 className="transition-all text-neon">{props.name}</h2></a>
+        <a href={`/project/${props.name}`}><h2 className="transition-all text-neon hover:text-neon-v2">{props.name}</h2></a>
         <p className="my-3 break-words text-sm flex-auto">{description}</p>
       </div>
     

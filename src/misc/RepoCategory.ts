@@ -1,4 +1,6 @@
-const getRepoCategory = (evaluatedCategories: string[]) => {
+import type { RepositoryTopic } from "../models/Github";
+
+const getRepoCategory = (evaluatedCategories: RepositoryTopic[]) => {
     const categories = [
         {
             category: "game",
@@ -18,9 +20,9 @@ const getRepoCategory = (evaluatedCategories: string[]) => {
         },
     ]
     for (let evaluatedCategory of evaluatedCategories) {
-        evaluatedCategory = evaluatedCategory.topic.name;
+        const topicName: string = evaluatedCategory.topic.name;
         for (const categoryObj of categories) {
-            if (categoryObj.techs.find(tech => tech === evaluatedCategory)) {
+            if (categoryObj.techs.find(tech => tech === topicName)) {
                 return categoryObj.category;
             }
         }

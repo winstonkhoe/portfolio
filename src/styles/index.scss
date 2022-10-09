@@ -5,7 +5,6 @@ section {
 body {
   padding: 0;
   background: var(--dark-bg);
-  // background: white;
   font-size: var(--fs-400);
   color: white;
   // padding: 20vw 0;
@@ -219,15 +218,27 @@ body {
 
 .text-neon {
 
-  &:hover {
-    text-shadow:
-      0 0 7px rgba(255, 255, 255, .5),
-      0 0 10px #fff,
-      0 0 21px #fff,
-      0 0 42px #0fa,
-      0 0 82px #0fa,
-      /* 0 0 92px #0fa, */
-      /* 0 0 102px #0fa, */
-      /* 0 0 151px #0fa; */
-  }
+  // &:hover {
+  //   text-shadow:
+  //     0 0 7px rgba(255, 255, 255, .5),
+  //     0 0 10px #fff,
+  //     0 0 21px #fff,
+  //     0 0 42px #0fa,
+  //     0 0 82px #0fa,
+  //     /* 0 0 92px #0fa, */
+  //     /* 0 0 102px #0fa, */
+  //     /* 0 0 151px #0fa; */
+  // }
+}
+
+.text-neon-v2 {
+  text-shadow:
+    0 0 7px rgba(255, 255, 255, .5),
+    0 0 10px #fff,
+    0 0 21px #fff,
+    0 0 42px #0fa,
+    0 0 82px #0fa,
+    /* 0 0 92px #0fa, */
+    /* 0 0 102px #0fa, */
+    /* 0 0 151px #0fa; */
 }

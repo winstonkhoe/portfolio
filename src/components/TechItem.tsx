@@ -1,31 +1,36 @@
-import { useState } from "react";
 import "../styles/index.scss";
 
-const TechItem = ({ name, image, hover, click, style }) => {
+const TechItem = (props: {
+  name: string;
+  image: string;
+  hover: Function;
+  click: Function;
+  style: string;
+}) => {
   // const [onHover, setOnHover] = useState(false);
   const mouseEnter = () => {
-    hover(name);
+    props.hover(props.name);
     // setOnHover(true);
   };
 
   const mouseLeave = () => {
-    hover("");
+    props.hover("");
     // setOnHover(false);
   };
 
   const mouseClick = () => {
-    click(name);
-  }
+    props.click(props.name);
+  };
   return (
     <a
-      className={`${style}`}
+      className={`${props.style}`}
       href="#"
-      aria-label={name}
+      aria-label={props.name}
       onMouseEnter={mouseEnter}
       onMouseLeave={mouseLeave}
       onMouseDown={mouseClick}
     >
-      <img src={"images/" + image} alt="" />
+      <img src={"images/" + props.image} alt="" />
     </a>
   );
 };
