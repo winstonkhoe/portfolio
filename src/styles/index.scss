@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 section {
   transform-style: preserve-3d;
 }
@@ -231,14 +235,16 @@ body {
   // }
 }
 
-.text-neon-v2 {
-  text-shadow:
-    0 0 7px rgba(255, 255, 255, .5),
-    0 0 10px #fff,
-    0 0 21px #fff,
-    0 0 42px #0fa,
-    0 0 82px #0fa,
-    /* 0 0 92px #0fa, */
-    /* 0 0 102px #0fa, */
-    /* 0 0 151px #0fa; */
+@layer utilities{
+  .text-neon-v2 {
+    text-shadow:
+      0 0 7px rgba(255, 255, 255, .5),
+      0 0 10px #fff,
+      0 0 21px #fff,
+      0 0 42px #0fa,
+      0 0 82px #0fa,
+      /* 0 0 92px #0fa, */
+      /* 0 0 102px #0fa, */
+      /* 0 0 151px #0fa; */
+  }
 }
