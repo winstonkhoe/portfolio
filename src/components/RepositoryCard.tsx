@@ -9,7 +9,7 @@ const RepositoryCard = (props: {
 }) => {
   const category = getRepoCategory(props.techs);
   return (
-    <div className="card-repository rounded-xl p-4 flex-auto">
+    <div className="card-repository rounded-xl p-4 flex-auto bg-color[#fff]">
       <div className="flex w-full justify-end">
         {category ? (
           <a
@@ -58,8 +58,8 @@ const OverviewRepositoryCard = (props: {
             </a>
           ) : null}
         </div>
-        <a href={`/project/${props.name}`}><h2 className="transition-all text-neon hover:text-neon-v2">{props.name}</h2></a>
-        <p className="my-3 break-words text-sm flex-auto">{description}</p>
+        <a href={`/project/${props.name}`}><h2 className="transition-all hover:text-neon">{props.name}</h2></a>
+        <p className="my-3 break-words text-sm flex-auto text-center">{description}</p>
       </div>
     
   );

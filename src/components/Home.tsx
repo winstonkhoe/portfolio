@@ -122,8 +122,8 @@ const Home = (props: {
         className="lg:min-h-screen flex justify-center items-center"
       >
         <div className="container">
-          <div className="feature-grid-container grid grid--columns">
-            <div className="profile-container relative flex h-full justify-center items-center overflow-hidden">
+          <div className="top-container flex flex-col lg:grid grid--columns">
+            <div className="profile-container h-[50vh] relative flex lg:h-full justify-center items-center overflow-hidden">
               <div
                 className={`flex w-full h-full absolute flex-col justify-center items-center transition-all duration-300 ${
                   activeRepos.length > 0 ? "-translate-x-full" : ""
@@ -183,7 +183,7 @@ const Home = (props: {
               </div>
             </div>
 
-            <div className="grid feature-grid">
+            <div className="techs-container mb-32 lg:mb-0">
               {techs.map((tech, index) => {
                 return (
                   <TechItem
@@ -192,11 +192,11 @@ const Home = (props: {
                     image={tech.image}
                     hover={setActiveHover}
                     click={setClickTech}
-                    style={
-                      hoverTech === "" && clickedTech === tech.name
+                    style={`w-[5rem] h-[5rem] sm:w-[10rem] sm:h-[10rem] lg:w-full lg:h-full
+                      ${hoverTech === "" && clickedTech === tech.name
                         ? "highlight-shadow"
-                        : ""
-                    }
+                        : ""}
+                    `}
                   />
                 );
               })}
