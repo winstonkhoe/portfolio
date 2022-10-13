@@ -3,7 +3,6 @@ import "../styles/index.scss";
 const TechItem = (props: {
   name: string;
   image: string;
-  opacity: number;
   hover: Function;
   click: Function;
   style: string;
@@ -25,7 +24,6 @@ const TechItem = (props: {
   return (
     <a
       className={`${props.style}`}
-      style={{boxShadow: `0 0 .5rem hsl(95 94% 48% / ${props.opacity})`}}
       href="#"
       aria-label={props.name}
       onMouseEnter={mouseEnter}

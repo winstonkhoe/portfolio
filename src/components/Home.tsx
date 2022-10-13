@@ -1,19 +1,18 @@
 import TechItem from "./TechItem.jsx";
 import { RepositoryCard, OverviewRepositoryCard } from "./RepositoryCard";
+import { isMobile } from "react-device-detect";
 // import "../styles/index.scss";
 import { FaGithub, FaInstagram, FaLinkedin } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import type { Repository, Repositories } from "../models/Github.js";
 
-const Home = (props: {
-  repositories: Repositories
-}) => {
-
+const Home = (props: { repositories: Repositories }) => {
   const [maxCountRepoPerLang, setMaxCountRepoPerLang] = useState(1);
-  const [experienceVisibility, setExperienceVisibility] = useState<boolean>(false)
-  const [hoverTech, setHoverTech] = useState<string>("")
-  const [clickedTech, setClickedTech] = useState<string>("")
-  const [activeRepos, setActiveRepos] = useState<Repository[]>([])
+  const [experienceVisibility, setExperienceVisibility] =
+    useState<boolean>(false);
+  const [hoverTech, setHoverTech] = useState<string>("");
+  const [clickedTech, setClickedTech] = useState<string>("");
+  const [activeRepos, setActiveRepos] = useState<Repository[]>([]);
   const techs = [
     {
       image: "android.png",
@@ -90,10 +89,9 @@ const Home = (props: {
         }
       }
     }
-    if (maxCountRepoPerLang < count)
-      setMaxCountRepoPerLang(count);
+    if (maxCountRepoPerLang < count) setMaxCountRepoPerLang(count);
     return count;
-  }
+  };
 
   useEffect(() => {
     const activeTech = hoverTech === "" ? clickedTech : hoverTech;
@@ -123,14 +121,26 @@ const Home = (props: {
         className="lg:min-h-screen flex flex-col justify-center items-center"
       >
         <div className="m-16 lg:mt-0 lg:mb-48">
-          <button className={`bg-indigo-500 transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/50 rounded-lg px-4 py-2 [&_span]:hover:${experienceVisibility === false ? 'text-green-500' : 'text-rose-700'}`} onClick={() => { setExperienceVisibility(!experienceVisibility) }}><span>{experienceVisibility === false ? "Show" : "Hide"}</span>{` Experience`}</button>
+          <button
+            className={`bg-indigo-500 transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/50 rounded-lg px-4 py-2 [&_span]:hover:${
+              experienceVisibility === false
+                ? "text-green-500"
+                : "text-rose-700"
+            }`}
+            onClick={() => {
+              setExperienceVisibility(!experienceVisibility);
+            }}
+          >
+            <span>{experienceVisibility === false ? "Show" : "Hide"}</span>
+            {` Experience`}
+          </button>
         </div>
         <div className="container">
           <div className="top-container flex flex-col lg:grid grid--columns">
             <div className="profile-container h-[50vh] relative flex lg:h-full justify-center items-center overflow-hidden">
               <div
                 className={`flex w-full h-full absolute flex-col justify-center items-center transition-all duration-300 ${
-                  activeRepos.length > 0 ? "-translate-x-full" : ""
+                  !isMobile && activeRepos.length > 0 ? "-translate-x-full" : ""
                 }`}
               >
                 <div className="group rounded-full relative flex justify-center items-center z-[999] overflow-hidden h-48 w-48">
@@ -166,7 +176,9 @@ const Home = (props: {
               </div>
               <div
                 className={`flex absolute right-0 w-full h-full flex-col items-center justify-start transition-all duration-300 p-5 ${
-                  activeRepos.length > 0 ? "translate-x-0" : "translate-x-full"
+                  !isMobile && activeRepos.length > 0
+                    ? "translate-x-0"
+                    : "translate-x-full"
                 }`}
               >
                 <h2 className="text-2xl font-bold">
@@ -190,19 +202,45 @@ const Home = (props: {
             <div className="techs-container mb-32 lg:mb-0">
               {techs.map((tech, index) => {
                 return (
-                  <TechItem
-                    key={index}
-                    name={tech.name}
-                    image={tech.image}
-                    hover={setActiveHover}
-                    click={setClickTech}
-                    opacity={experienceVisibility === false ? 0 : getRepositoryCount(tech.name)/maxCountRepoPerLang * 1.0}
-                    style={`w-[5rem] h-[5rem] sm:w-[10rem] sm:h-[10rem] lg:w-full lg:h-full transition-all ease-in-out duration-300
-                      ${hoverTech === "" && clickedTech === tech.name
+                  <>
+                    <div
+                      className={`tech-item h-[5rem] sm:h-[10rem] lg:w-full lg:h-full
+                    transition-all ease-in-out duration-300
+                    hover:highlight-shadow
+                    ${
+                      hoverTech === "" && clickedTech === tech.name
                         ? "highlight-shadow"
-                        : ""}
-                    `}
-                  />
+                        : ""
+                    }
+                    ${
+                      isMobile && clickedTech === tech.name
+                        ? "w-full"
+                        : "w-[5rem] sm:w-[10rem]"
+                    }
+                  `}
+                      style={{
+                        boxShadow: `0 0 .5rem hsl(95 94% 48% / ${
+                          experienceVisibility === false
+                            ? 0
+                            : (getRepositoryCount(tech.name) /
+                                maxCountRepoPerLang) *
+                              1.0
+                        })`,
+                      }}
+                    >
+                      <TechItem
+                        key={index}
+                        name={tech.name}
+                        image={tech.image}
+                        hover={setActiveHover}
+                        click={setClickTech}
+                        style={`flex justify-center items-center w-full h-full transition-all ease-in-out duration-300
+                        
+                        
+                      `}
+                      />
+                    </div>
+                  </>
                 );
               })}
             </div>
