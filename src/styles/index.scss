@@ -127,7 +127,6 @@ body {
     justify-content: center;
     align-items: center;
     border-radius: 0.75em;
-    transition: transform 350ms ease-in-out;
     background-color: var(--card-bg);
     overflow: hidden;
     > img {
@@ -140,15 +139,14 @@ body {
 
 .highlight-shadow {
   transform: scale(1.1);
-  box-shadow: 0 0 1.5rem hsl(0 0% 100% / 0.8);
+  box-shadow: 0 0 1.5rem hsl(0 0% 100% / 0.8) !important;
 }
 
 
 
 .techs-container > a:hover,
 .techs-container > a:focus-visible {
-  transform: scale(1.1);
-  box-shadow: 0 0 1.5rem hsl(0 0% 100% / 0.8);
+  @extend .highlight-shadow;
 }
 
 .techs-container > :nth-child(1),

@@ -8,9 +8,12 @@ import type { Repository, Repositories } from "../models/Github.js";
 const Home = (props: {
   repositories: Repositories
 }) => {
-  const [hoverTech, setHoverTech] = useState("");
-  const [clickedTech, setClickedTech] = useState("");
-  const [activeRepos, setActiveRepos] = useState<Repository[]>([]);
+
+  const [maxCountRepoPerLang, setMaxCountRepoPerLang] = useState(1);
+  const [experienceVisibility, setExperienceVisibility] = useState<boolean>(false)
+  const [hoverTech, setHoverTech] = useState<string>("")
+  const [clickedTech, setClickedTech] = useState<string>("")
+  const [activeRepos, setActiveRepos] = useState<Repository[]>([])
   const techs = [
     {
       image: "android.png",
@@ -71,28 +74,26 @@ const Home = (props: {
   ];
 
   const setActiveHover = (tech: string) => {
-    // console.log(`tech: ${tech}`);
     setHoverTech(tech);
-    // if (tech === "") {
-    //   setActiveRepos([]);
-    // } else {
-    //   let tempRepos = [];
-    //   console.log(props.repositories);
-    //   for (const repository of props.repositories.nodes) {
-    //     console.warn(repository);
-    //     for (const node of repository.repositoryTopics.nodes) {
-    //       if (node.topic.name === tech) {
-    //         tempRepos.push(repository);
-    //       }
-    //     }
-    //   }
-    //   setActiveRepos(tempRepos);
-    // }
   };
 
   const setClickTech = (tech: string) => {
     setClickedTech(clickedTech === tech ? "" : tech);
   };
+
+  const getRepositoryCount = (tech: string) => {
+    let count = 0;
+    for (const repository of props.repositories.nodes) {
+      for (const node of repository.repositoryTopics.nodes) {
+        if (node.topic.name === tech) {
+          count++;
+        }
+      }
+    }
+    if (maxCountRepoPerLang < count)
+      setMaxCountRepoPerLang(count);
+    return count;
+  }
 
   useEffect(() => {
     const activeTech = hoverTech === "" ? clickedTech : hoverTech;
@@ -119,8 +120,11 @@ const Home = (props: {
           const target = e.target as HTMLInputElement;
           if (target.id === "tech-stack-container") setClickedTech("");
         }}
-        className="lg:min-h-screen flex justify-center items-center"
+        className="lg:min-h-screen flex flex-col justify-center items-center"
       >
+        <div className="m-16 lg:mt-0 lg:mb-48">
+          <button className={`bg-indigo-500 transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/50 rounded-lg px-4 py-2 [&_span]:hover:${experienceVisibility === false ? 'text-green-500' : 'text-rose-700'}`} onClick={() => { setExperienceVisibility(!experienceVisibility) }}><span>{experienceVisibility === false ? "Show" : "Hide"}</span>{` Experience`}</button>
+        </div>
         <div className="container">
           <div className="top-container flex flex-col lg:grid grid--columns">
             <div className="profile-container h-[50vh] relative flex lg:h-full justify-center items-center overflow-hidden">
@@ -192,7 +196,8 @@ const Home = (props: {
                     image={tech.image}
                     hover={setActiveHover}
                     click={setClickTech}
-                    style={`w-[5rem] h-[5rem] sm:w-[10rem] sm:h-[10rem] lg:w-full lg:h-full
+                    opacity={experienceVisibility === false ? 0 : getRepositoryCount(tech.name)/maxCountRepoPerLang * 1.0}
+                    style={`w-[5rem] h-[5rem] sm:w-[10rem] sm:h-[10rem] lg:w-full lg:h-full transition-all ease-in-out duration-300
                       ${hoverTech === "" && clickedTech === tech.name
                         ? "highlight-shadow"
                         : ""}
