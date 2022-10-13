@@ -1,8 +1,8 @@
 import TechItem from "./TechItem.jsx";
 import { RepositoryCard, OverviewRepositoryCard } from "./RepositoryCard";
-import { isMobile } from "react-device-detect";
+import { isMobile,  } from "react-device-detect";
 // import "../styles/index.scss";
-import { FaGithub, FaInstagram, FaLinkedin } from "react-icons/fa";
+import { FaGithub, FaInstagram, FaLinkedin, FaCode, FaCamera } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import type { Repository, Repositories } from "../models/Github.js";
 
@@ -47,7 +47,7 @@ const Home = (props: { repositories: Repositories }) => {
       name: "go",
     },
     {
-      image: "astro-hero.png",
+      image: isMobile ? "astro.png" : "astro-hero.png",
       name: "astro",
     },
     {
@@ -120,18 +120,22 @@ const Home = (props: { repositories: Repositories }) => {
         }}
         className="lg:min-h-screen flex flex-col justify-center items-center"
       >
-        <div className="m-16 lg:mt-0 lg:mb-48">
+        <div className="mt-8 mb-4 lg:mt-0 lg:mb-48">
           <button
-            className={`bg-indigo-500 transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/50 rounded-lg px-4 py-2 [&_span]:hover:${
-              experienceVisibility === false
-                ? "text-green-500"
-                : "text-rose-700"
-            }`}
+            className={`group bg-indigo-500 transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/50 rounded-lg px-4 py-2`}
             onClick={() => {
               setExperienceVisibility(!experienceVisibility);
             }}
           >
-            <span>{experienceVisibility === false ? "Show" : "Hide"}</span>
+            <span
+              className={`${
+                experienceVisibility === false
+                  ? "group-hover:text-green-500/90"
+                  : "group-hover:text-rose-700/70"
+              }`}
+            >
+              {experienceVisibility === false ? "Show" : "Hide"}
+            </span>
             {` Experience`}
           </button>
         </div>
@@ -204,18 +208,18 @@ const Home = (props: { repositories: Repositories }) => {
                 return (
                   <>
                     <div
-                      className={`tech-item h-[5rem] sm:h-[10rem] lg:w-full lg:h-full
-                    transition-all ease-in-out duration-300
-                    hover:highlight-shadow
+                      className={`relative tech-item h-[5rem] sm:h-[10rem] lg:w-full lg:h-full
+                    transition-all ease-in-out duration-300 cursor-pointer
+                    hover:highlight-shadow 
                     ${
                       hoverTech === "" && clickedTech === tech.name
-                        ? "highlight-shadow"
+                        ? "highlight-shadow scale-[1.1]"
                         : ""
                     }
                     ${
                       isMobile && clickedTech === tech.name
                         ? "w-full"
-                        : "w-[5rem] sm:w-[10rem]"
+                        : "w-[5rem] sm:w-[10rem] hover:scale-[1.1]"
                     }
                   `}
                       style={{
@@ -227,19 +231,53 @@ const Home = (props: { repositories: Repositories }) => {
                               1.0
                         })`,
                       }}
+                      onMouseEnter={() => {
+                        setActiveHover(tech.name);
+                      }}
+                      onMouseLeave={() => {
+                        setActiveHover("");
+                      }}
+                      onMouseDown={() => {
+                        setClickTech(tech.name);
+                      }}
                     >
                       <TechItem
                         key={index}
                         name={tech.name}
                         image={tech.image}
-                        hover={setActiveHover}
-                        click={setClickTech}
-                        style={`flex justify-center items-center w-full h-full transition-all ease-in-out duration-300
-                        
-                        
-                      `}
+                        style={`flex justify-center items-center w-full h-full transition-all ease-in-out duration-300`}
                       />
+                      <div
+                        className={`absolute w-full h-full flex justify-center items-center bg-black/50 z-3 transition-all duration-300 ease-in-out ${
+                          isMobile && clickedTech === tech.name
+                            ? "opacity-1"
+                            : "opacity-0"
+                        }`}
+                      >
+                        <h2 className="text-3xl">{tech.name}</h2>
+                      </div>
                     </div>
+                    {isMobile && (
+                      <div
+                        className={`flex flex-col overflow-y-auto bg-black/50 transition-all ease-in-out duration-300 ${
+                          isMobile && clickedTech === tech.name
+                            ? "w-full h-[30vh] p-5"
+                            : "w-0 h-0 p-0"
+                        }`}
+                      >
+                        {clickedTech === tech.name &&
+                          activeRepos.map((repo, index) => {
+                            return (
+                              <OverviewRepositoryCard
+                                key={index}
+                                name={repo.name}
+                                description={repo.description}
+                                techs={repo.repositoryTopics.nodes}
+                              />
+                            );
+                          })}
+                      </div>
+                    )}
                   </>
                 );
               })}

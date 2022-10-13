@@ -122,7 +122,7 @@ body {
 }
 
 .techs-container {
-  > a {
+  a {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -258,7 +258,6 @@ body {
   }
 
   .highlight-shadow {
-    transform: scale(1.1);
     box-shadow: 0 0 1.5rem hsl(0 0% 100% / 0.8) !important;
   }
 
