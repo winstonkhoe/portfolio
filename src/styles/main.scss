@@ -17,7 +17,7 @@ $desktop: 1024px;
     font-style: normal;
     font-display: swap;
 }
-
+@layer utilities{
 :root {
     --accent: 124, 58, 237;
     --accent-gradient: linear-gradient(45deg,
@@ -35,6 +35,9 @@ $desktop: 1024px;
     --card-light-bg: #272727;
     --fs-700: 3.5rem;
     --fs-400: 1.25rem;
+    --tab-inactive-bg: #285f77;
+    --tab-active-bg: #29b6f6;
+}
 }
 
 html {

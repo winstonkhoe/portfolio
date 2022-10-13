@@ -207,6 +207,9 @@ body {
   
 }
 
+.--gap-25 {
+  --gap: 0.25rem;
+}
 .tech-container {
   --gap: .3rem;
 }
@@ -271,5 +274,20 @@ body {
       /* 0 0 92px #0fa, */
       /* 0 0 102px #0fa, */
       /* 0 0 151px #0fa; */
+  }
+
+  .shadow-box-tab {
+    box-shadow:
+    0 0 10px rgb(0, 225, 255),
+    0 0 21px rgb(0, 247, 255),
+    0 0 42px rgba(0, 217, 255, 0.37),
+    0 0 82px rgb(255, 255, 255),
+  }
+  .shadow-box-tab-hover {
+    box-shadow:
+    0 0 10px rgba(0, 225, 255, .2),
+    0 0 21px rgba(0, 247, 255, .2),
+    0 0 42px rgba(0, 217, 255, 0.3),
+    0 0 82px rgba(255, 255, 255, .5),
   }
 }

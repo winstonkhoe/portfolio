@@ -1,18 +1,30 @@
 import TechItem from "./TechItem.jsx";
 import { RepositoryCard, OverviewRepositoryCard } from "./RepositoryCard";
-import { isMobile,  } from "react-device-detect";
+import { isMobile } from "react-device-detect";
 // import "../styles/index.scss";
-import { FaGithub, FaInstagram, FaLinkedin, FaCode, FaCamera } from "react-icons/fa";
+import {
+  FaGithub,
+  FaInstagram,
+  FaLinkedin,
+  FaCode,
+  FaCamera,
+} from "react-icons/fa";
 import { useEffect, useState } from "react";
 import type { Repository, Repositories } from "../models/Github.js";
+import { Tab } from "./Tab.jsx";
 
 const Home = (props: { repositories: Repositories }) => {
-  const [maxCountRepoPerLang, setMaxCountRepoPerLang] = useState(1);
-  const [experienceVisibility, setExperienceVisibility] =
-    useState<boolean>(false);
-  const [hoverTech, setHoverTech] = useState<string>("");
-  const [clickedTech, setClickedTech] = useState<string>("");
-  const [activeRepos, setActiveRepos] = useState<Repository[]>([]);
+  const tabs = [
+    {
+      name: "Coder",
+      children: <FaCode className="w-50 h-50 transition-all" />,
+    },
+    {
+      name: "Photographer",
+      children: <FaCamera className="w-50 h-50 transition-all" />,
+    },
+  ];
+
   const techs = [
     {
       image: "android.png",
@@ -72,6 +84,20 @@ const Home = (props: { repositories: Repositories }) => {
     },
   ];
 
+  const [maxCountRepoPerLang, setMaxCountRepoPerLang] = useState(1);
+  const [experienceVisibility, setExperienceVisibility] =
+    useState<boolean>(false);
+  const [activeTab, setActiveTab] = useState<string>(
+    tabs.length > 0 ? tabs[0].name : ""
+  );
+  const [hoverTech, setHoverTech] = useState<string>("");
+  const [clickedTech, setClickedTech] = useState<string>("");
+  const [activeRepos, setActiveRepos] = useState<Repository[]>([]);
+
+  const activateTab = (tab: string) => {
+    setActiveTab(tab);
+  };
+
   const setActiveHover = (tech: string) => {
     setHoverTech(tech);
   };
@@ -112,6 +138,17 @@ const Home = (props: { repositories: Repositories }) => {
 
   return (
     <>
+      <section id="tab" className="flex w-full justify-center items-center h-[10rem]">
+        <div className="flex flex-wrap justify-around items-center px-8 py-4 rounded-lg">
+          {tabs.map((tab, index) => {
+            return (
+              <Tab name={tab.name} key={index} isActiveTab={activeTab === tab.name} setActivateTab={activateTab}>
+                {tab.children}
+              </Tab>
+            )
+          })}
+        </div>
+      </section>
       <section
         id="tech-stack-container"
         onMouseDown={(e) => {
