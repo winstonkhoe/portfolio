@@ -233,6 +233,10 @@ body {
   --scroll-margin-x: 3rem;
 }
 
+#tab {
+  will-change: transform;
+}
+
 @layer utilities{
   .flex {
     @include flex;
