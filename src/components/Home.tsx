@@ -274,8 +274,9 @@ const Home = (props: { repositories: Repositories }) => {
                                 1.0
                           })`,
                         }}
+                        
                         onMouseEnter={() => {
-                          setActiveHover(tech.name);
+                          isMobile ? setClickTech(tech.name) : setActiveHover(tech.name);
                         }}
                         onMouseLeave={() => {
                           setActiveHover("");
@@ -349,7 +350,7 @@ const Home = (props: { repositories: Repositories }) => {
         </section>
       </div>
     ),
-    Photographer: <></>,
+    Photographer: <div className="flex h-[80vh] justify-center items-center"><h2>Coming Soon :D</h2></div>,
   };
 
   return (
