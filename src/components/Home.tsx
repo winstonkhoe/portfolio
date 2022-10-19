@@ -119,6 +119,30 @@ const Home = (props: { repositories: Repositories }) => {
     return count;
   };
 
+  const ExperienceToggle = () => {
+    return (
+      <div className="mt-8 mb-4 lg:mt-0 lg:mb-48">
+        <button
+          className={`group bg-indigo-500 transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/50 rounded-lg px-4 py-2`}
+          onClick={() => {
+            setExperienceVisibility(!experienceVisibility);
+          }}
+        >
+          <span
+            className={`${
+              experienceVisibility === false
+                ? "group-hover:text-green-500/90"
+                : "group-hover:text-rose-700/70"
+            }`}
+          >
+            {experienceVisibility === false ? "Show" : "Hide"}
+          </span>
+          {` Experience`}
+        </button>
+      </div>
+    );
+  };
+
   useEffect(() => {
     const activeTech = hoverTech === "" ? clickedTech : hoverTech;
     if (activeTech === "") {
@@ -136,7 +160,11 @@ const Home = (props: { repositories: Repositories }) => {
     }
   }, [hoverTech, clickedTech]);
 
-  const secondPage = {
+  interface Pages {
+    [key: string]: JSX.Element;
+  }
+
+  const secondPage: Pages = {
     Coder: (
       <div className="h-full w-full transition-all duration-1000">
         <section
@@ -147,25 +175,7 @@ const Home = (props: { repositories: Repositories }) => {
           }}
           className="lg:min-h-screen flex flex-col justify-center items-center"
         >
-          <div className="mt-8 mb-4 lg:mt-0 lg:mb-48">
-            <button
-              className={`group bg-indigo-500 transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/50 rounded-lg px-4 py-2`}
-              onClick={() => {
-                setExperienceVisibility(!experienceVisibility);
-              }}
-            >
-              <span
-                className={`${
-                  experienceVisibility === false
-                    ? "group-hover:text-green-500/90"
-                    : "group-hover:text-rose-700/70"
-                }`}
-              >
-                {experienceVisibility === false ? "Show" : "Hide"}
-              </span>
-              {` Experience`}
-            </button>
-          </div>
+          {!isMobile && <ExperienceToggle />}
           <div className="container">
             <div className="top-container flex flex-col lg:grid grid--columns">
               <div className="profile-container h-[50vh] relative flex lg:h-full justify-center items-center overflow-hidden">
@@ -231,7 +241,11 @@ const Home = (props: { repositories: Repositories }) => {
                   </div>
                 </div>
               </div>
-
+              {isMobile && (
+                <div className="flex w-full justify-center items-center">
+                  <ExperienceToggle />
+                </div>
+              )}
               <div className="techs-container mb-32 lg:mb-0">
                 {techs.map((tech, index) => {
                   return (
@@ -346,7 +360,11 @@ const Home = (props: { repositories: Repositories }) => {
           currentStep == 1 ? "h-[100vh]" : "h-[10rem]"
         }`}
       >
-        <div className={`flex flex-col w-full justify-center items-center transition-all duration-1000 ${currentStep > 1 ? 'opacity-0' : 'opacity-1'}`}>
+        <div
+          className={`flex flex-col w-full justify-center items-center transition-all duration-150 ${
+            currentStep > 1 ? "opacity-0 h-0" : "opacity-1"
+          }`}
+        >
           <h2>What do you want to see?</h2>
           <h1 className="text-3xl">Winston Khoe</h1>
           <h2>as a</h2>
