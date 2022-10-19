@@ -44,7 +44,7 @@ const response = await fetch("https://api.github.com/graphql",
   const data = await response.json()
   const repositories = data.data.repositoryOwner.repositories
 ---
-<Layout title="Home">
+<Layout title="Winston">
     <Home client:only="react" repositories={repositories}>
     </Home>
 </Layout>
