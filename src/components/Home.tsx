@@ -356,7 +356,7 @@ const Home = (props: { repositories: Repositories }) => {
     <>
       <section
         id="tab"
-        className={`flex flex-col w-full justify-center items-center transition-all duration-[1000ms] delay-300 ${
+        className={`flex flex-col w-full justify-center items-center transition-all duration-[1000ms] delay-300 touch-none ${
           currentStep == 1 ? "h-[100vh]" : "h-[10rem]"
         }`}
       >
