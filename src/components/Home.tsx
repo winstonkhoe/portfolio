@@ -197,7 +197,7 @@ const Home = (props: { repositories: Repositories }) => {
                     </h6>
                   </div>
                   <span className="flex justify-center flex-col items-center mt-10">
-                    <h2 className={`text-4xl`}>winston khoe</h2>
+                    <h2 className={`text-4xl`}>khoe winston</h2>
                   </span>
                   <div className="flex large-gap">
                     <a href="https://github.com/winstonkhoe" target={"_blank"}>
@@ -376,7 +376,7 @@ const Home = (props: { repositories: Repositories }) => {
           }`}
         >
           <h2>What do you want to see?</h2>
-          <h1 className="text-3xl">Winston Khoe</h1>
+          <h1 className="text-3xl">Khoe Winston</h1>
           <h2>as a</h2>
         </div>
         <div className="flex flex-wrap w-full justify-around items-center px-8 py-4 rounded-lg">
