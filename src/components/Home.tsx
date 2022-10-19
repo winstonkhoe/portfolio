@@ -79,7 +79,7 @@ const Home = (props: { repositories: Repositories }) => {
       name: "csharp",
     },
     {
-      image: "firebase-white.png",
+      image: "firebase-logo.png",
       name: "firebase",
     },
   ];
@@ -249,20 +249,20 @@ const Home = (props: { repositories: Repositories }) => {
               <div className="techs-container mb-32 lg:mb-0">
                 {techs.map((tech, index) => {
                   return (
-                    <>
+                    <div key={index}>
                       <div
                         className={`relative tech-item h-[5rem] sm:h-[10rem] lg:w-full lg:h-full
               transition-all ease-in-out duration-300 cursor-pointer
-              hover:highlight-shadow 
+              ${!isMobile ? "hover:highlight-shadow hover:scale-[1.1]" : ""}
               ${
-                hoverTech === "" && clickedTech === tech.name
+                !isMobile && hoverTech === "" && clickedTech === tech.name
                   ? "highlight-shadow scale-[1.1]"
                   : ""
               }
               ${
                 isMobile && clickedTech === tech.name
-                  ? "w-full"
-                  : "w-[5rem] sm:w-[10rem] hover:scale-[1.1]"
+                  ? "w-full highlight-shadow"
+                  : "w-[5rem] sm:w-[10rem]"
               }
             `}
                         style={{
@@ -274,9 +274,10 @@ const Home = (props: { repositories: Repositories }) => {
                                 1.0
                           })`,
                         }}
-                        
                         onMouseEnter={() => {
-                          isMobile ? setClickTech(tech.name) : setActiveHover(tech.name);
+                          isMobile
+                            ? setClickTech(tech.name)
+                            : setActiveHover(tech.name);
                         }}
                         onMouseLeave={() => {
                           setActiveHover("");
@@ -309,7 +310,7 @@ const Home = (props: { repositories: Repositories }) => {
                               : "w-0 h-0 p-0"
                           }`}
                         >
-                          {clickedTech === tech.name &&
+                          {clickedTech === tech.name && activeRepos.length > 0 ?
                             activeRepos.map((repo, index) => {
                               return (
                                 <OverviewRepositoryCard
@@ -319,10 +320,14 @@ const Home = (props: { repositories: Repositories }) => {
                                   techs={repo.repositoryTopics.nodes}
                                 />
                               );
-                            })}
+                            }) : <div className="flex flex-col w-[80vw] h-[15rem] justify-center items-center gap-1">
+                              <h6 className="font-bold text-sm">still</h6>
+                              <h2 className="font-bold">Hidden 🥷🏻</h2>
+                            </div>
+                          }
                         </div>
                       )}
-                    </>
+                    </div>
                   );
                 })}
               </div>
@@ -350,7 +355,11 @@ const Home = (props: { repositories: Repositories }) => {
         </section>
       </div>
     ),
-    Photographer: <div className="flex h-[80vh] justify-center items-center"><h2>Coming Soon :D</h2></div>,
+    Photographer: (
+      <div className="flex h-[80vh] justify-center items-center touch-none">
+        <h2>Coming Soon :D</h2>
+      </div>
+    ),
   };
 
   return (
@@ -373,17 +382,14 @@ const Home = (props: { repositories: Repositories }) => {
         <div className="flex flex-wrap w-full justify-around items-center px-8 py-4 rounded-lg">
           {tabs.map((tab, index) => {
             return (
-              <>
-                <Tab
-                  name={tab.name}
-                  key={index}
-                  isActiveTab={activeTab === tab.name}
-                  setActivateTab={activateTab}
-                >
-                  {tab.children}
-                </Tab>
-                {/* {index < tabs.length - 1 ? <h6 className="flex-none">or</h6> : ""} */}
-              </>
+              <Tab
+                name={tab.name}
+                key={index}
+                isActiveTab={activeTab === tab.name}
+                setActivateTab={activateTab}
+              >
+                {tab.children}
+              </Tab>
             );
           })}
         </div>
