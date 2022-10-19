@@ -1,7 +1,7 @@
 import TechItem from "./TechItem.jsx";
 import { RepositoryCard, OverviewRepositoryCard } from "./RepositoryCard";
 import { isMobile } from "react-device-detect";
-// import "../styles/index.scss";
+import "../styles/main.scss";
 import {
   FaGithub,
   FaInstagram,

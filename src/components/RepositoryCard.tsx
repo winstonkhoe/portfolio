@@ -1,6 +1,6 @@
 import { getRepoCategory } from "../misc/RepoCategory";
 import type { RepositoryTopic, Topic } from "../models/Github";
-import "../styles/index.scss";
+import "../styles/main.scss";
 
 const RepositoryCard = (props: {
   name: string;
@@ -58,7 +58,7 @@ const OverviewRepositoryCard = (props: {
             </a>
           ) : null}
         </div>
-        <a href={`/project/${props.name}`}><h2 className="transition-all hover:text-neon">{props.name}</h2></a>
+        <a href={`#`}><h2 className="transition-all hover:text-neon">{props.name}</h2></a>
         <p className="my-3 break-words text-sm flex-auto text-center">{description}</p>
       </div>
     
@@ -69,7 +69,7 @@ const TechItem = (props: { tech: string }) => {
   return (
     <a
       className="px-3 py-2 rounded-3xl text-base tech-item text-white"
-      href={`/${props.tech}`}
+      href={`#`}
     >
       {props.tech}
     </a>
